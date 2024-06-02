@@ -8,6 +8,7 @@ dependencies:
   - jupyter_client>=6.1
   - jupyter_core>=4.6.0
   - jupyter_server>=1.7
+  - jupyterlab==3.6.1
   - paramiko>=2.1.2
   - pexpect>=4.2.0
   - pip
@@ -26,7 +27,7 @@ dependencies:
   - mock
   - pytest
   - pytest-tornasync
-  - websocket-client
+  - websocket-client>=1.8.0
 
   # Code Style
   - flake8
