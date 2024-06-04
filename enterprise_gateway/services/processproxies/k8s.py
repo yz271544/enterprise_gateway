@@ -8,6 +8,7 @@ from __future__ import annotations
 import logging
 import os
 import re
+import threading
 from typing import Any
 
 import urllib3
@@ -48,10 +49,21 @@ class KubernetesProcessProxy(ContainerProcessProxy):
     def __init__(self, kernel_manager: RemoteKernelManager, proxy_config: dict):
         """Initialize the proxy."""
         super().__init__(kernel_manager, proxy_config)
-
         self.kernel_pod_name = None
         self.kernel_namespace = None
         self.delete_kernel_namespace = False
+
+        self.pre_spawn_kernel = proxy_config.get("pre_spawn_kernel", False)
+        self.pre_spawn_count = proxy_config.get('pre_spawn_count', 0)
+        if self.pre_spawn_kernel and self.pre_spawn_count > 0:
+            self._pre_spawn_kernels()
+
+    def _pre_spawn_kernels(self):
+        for _ in range(self.pre_spawn_count):
+            self.log.info(f"Pre-spawning Kubernetes kernel Namespace {self.kernel_namespace} "
+                          f"Name {self.kernel_pod_name}")
+            thread = threading.Thread(target=self.launch_kernel)
+            thread.start()
 
     async def launch_process(
         self, kernel_cmd: str, **kwargs: dict[str, Any] | None
