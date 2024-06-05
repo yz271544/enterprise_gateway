@@ -139,6 +139,8 @@ RUN ls -la /usr/hdp/current/hadoop/etc/hadoop/*-env.sh && \
     chmod +x /usr/hdp/current/hadoop/etc/hadoop/*-env.sh && \
     ls -la /usr/hdp/current/hadoop/etc/hadoop/*-env.sh
 
+
+USER root
 # Install Toree
 RUN cd /tmp && \
     curl -O https://archive.apache.org/dist/incubator/toree/0.5.0-incubating/toree-pip/toree-0.5.0.tar.gz && \
@@ -150,12 +152,9 @@ RUN cd /tmp && \
     fix-permissions /home/$NB_USER
 
 # SETUP PASSWORDLESS SSH FOR $NB_USER
-RUN ssh-keygen -q -N "" -t rsa -f /home/$NB_USER/.ssh/id_rsa && \
-    cp /home/$NB_USER/.ssh/id_rsa.pub /home/$NB_USER/.ssh/authorized_keys && \
-    chmod 0700 /home/$NB_USER
-
-USER root
-
+RUN ssh-keygen -q -N "" -t rsa -f /home/$NB_USER/.ssh/id_rsa
+RUN cp /home/$NB_USER/.ssh/id_rsa.pub /home/$NB_USER/.ssh/authorized_keys
+RUN chmod 0700 /home/$NB_USER
 # SETUP PASSWORDLESS SSH
 RUN yes y | ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key && \
     yes y | ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key && \

@@ -16,6 +16,8 @@ HUB_ORG:=elyra
 
 # Set NO_CACHE=--no-cache to force docker build to not use cached layers
 NO_CACHE?=
+PROGRESS?=
+
 
 help:
 # http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
@@ -155,16 +157,16 @@ ifdef MULTIARCH_BUILD
 	@echo "starting buildx builder for $1"
 	-@(docker buildx rm $1)
 	(docker buildx create --use --name $1)
-	(cd ../build/docker/$1; docker buildx build ${NO_CACHE} --platform $(PLATFORM_ARCHS) --build-arg HUB_ORG=${HUB_ORG} --build-arg TAG=${TAG} --build-arg SPARK_VERSION=${SPARK_VERSION} -t $(HUB_ORG)/$1:$(TAG) . --push)
+	(cd ../build/docker/$1; docker buildx build ${PROGRESS} ${NO_CACHE} --platform $(PLATFORM_ARCHS) --build-arg HUB_ORG=${HUB_ORG} --build-arg TAG=${TAG} --build-arg SPARK_VERSION=${SPARK_VERSION} -t $(HUB_ORG)/$1:$(TAG) . --push)
 	@echo "remove builder instance $1"
 	-(docker buildx rm $1)
 else ifeq ($(TARGET_ARCH), $(filter $(TARGET_ARCH), $(SUPPORTED_ARCHS)))
 	@echo "Building docker image for $(TARGET_ARCH)"
-	(cd ../build/docker/$1; docker build ${NO_CACHE} --platform ${TARGET_ARCH} --build-arg HUB_ORG=${HUB_ORG} --build-arg TAG=${TAG} --build-arg SPARK_VERSION=${SPARK_VERSION} -t $(HUB_ORG)/$1:$(TAG) .)
+	(cd ../build/docker/$1; docker build ${PROGRESS} ${NO_CACHE} --platform ${TARGET_ARCH} --build-arg HUB_ORG=${HUB_ORG} --build-arg TAG=${TAG} --build-arg SPARK_VERSION=${SPARK_VERSION} -t $(HUB_ORG)/$1:$(TAG) .)
 	@-docker images $(HUB_ORG)/$1:$(TAG)
 else
 	@echo "TARGET_ARCH not defined or not in supported platforms: $(PLATFORM_ARCHS). Building docker image for default platform"
-	(cd ../build/docker/$1; docker build ${NO_CACHE} --build-arg HUB_ORG=${HUB_ORG} --build-arg TAG=${TAG} --build-arg SPARK_VERSION=${SPARK_VERSION} -t $(HUB_ORG)/$1:$(TAG) .)
+	(cd ../build/docker/$1; docker build ${PROGRESS} ${NO_CACHE} --build-arg HUB_ORG=${HUB_ORG} --build-arg TAG=${TAG} --build-arg SPARK_VERSION=${SPARK_VERSION} -t $(HUB_ORG)/$1:$(TAG) .)
 	@-docker images $(HUB_ORG)/$1:$(TAG)
 endif
 	@touch ../.image-$1
