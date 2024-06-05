@@ -50,7 +50,8 @@ RUN dpkg --purge --force-depends ca-certificates-java \
     libkrb5-dev \
     sudo \
     locales \
-    build-essential \
+    gcc-11 \
+    g++-11 \
     fonts-liberation \
     unzip \
     libsm6 \
@@ -67,8 +68,8 @@ RUN dpkg --purge --force-depends ca-certificates-java \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-#RUN ln -s /usr/bin/gcc-12 /usr/bin/gcc
-#RUN ln -s /usr/bin/g++-12 /usr/bin/g++
+RUN ln -s /usr/bin/gcc-11 /usr/bin/gcc
+RUN ln -s /usr/bin/g++-11 /usr/bin/g++
 RUN ln -s $(readlink -f /usr/bin/javac | sed "s:/bin/javac::") ${JAVA_HOME}
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
