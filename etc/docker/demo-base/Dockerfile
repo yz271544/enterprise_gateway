@@ -30,11 +30,7 @@ ENV HOME=/home/$NB_USER \
 ENV SPARK_VER $SPARK_VERSION
 ENV HADOOP_VER 3.3.1
 
-RUN apt-get update
-
-RUN bash -c "echo 'deb http://deb.debian.org/debian testing main' >> /etc/apt/sources.list"
-
-RUN apt-get update
+RUN conda install -y python=3.10
 
 # INSTALL / DOWNLOAD ALL NEEDED PACKAGES    build-essential   gcc-12   g++-12
 RUN dpkg --purge --force-depends ca-certificates-java \
