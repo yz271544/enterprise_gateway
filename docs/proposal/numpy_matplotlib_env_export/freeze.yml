@@ -277,7 +277,7 @@ dependencies:
       - docutils==0.21.2
       - imagesize==1.4.1
       - jupyter-client==6.1.12
-      - jupyter-enterprise-gateway==3.3.0.dev0
+      - jupyter-enterprise-gateway==3.2.3
       - markdown==3.6
       - markdown-it-py==3.0.0
       - mdit-py-plugins==0.4.1

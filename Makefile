@@ -14,7 +14,7 @@ SHELL:=/bin/bash
 MULTIARCH_BUILD?=
 TARGET_ARCH?=undefined
 
-VERSION?=3.3.0.dev0
+VERSION?=3.2.3
 SPARK_VERSION?=3.2.1
 
 ifeq (dev, $(findstring dev, $(VERSION)))
@@ -98,6 +98,7 @@ test-install-tar:
 bdist: $(WHEEL_FILE)
 
 $(WHEEL_FILE): $(WHEEL_FILES)
+	@echo "WHEEL_FILE:${WHEEL_FILE}"
 	pip install build && python -m build --wheel . \
 		&& rm -rf *.egg-info && chmod 0755 dist/*.*
 

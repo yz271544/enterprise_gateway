@@ -30,7 +30,13 @@ ENV HOME=/home/$NB_USER \
 ENV SPARK_VER $SPARK_VERSION
 ENV HADOOP_VER 3.3.1
 
-# INSTALL / DOWNLOAD ALL NEEDED PACKAGES
+RUN apt-get update
+
+RUN bash -c "echo 'deb http://deb.debian.org/debian testing main' >> /etc/apt/sources.list"
+
+RUN apt-get update
+
+# INSTALL / DOWNLOAD ALL NEEDED PACKAGES    build-essential   gcc-12   g++-12
 RUN dpkg --purge --force-depends ca-certificates-java \
     && apt-get update && apt-get -yq dist-upgrade \
     && apt-get install -yq --no-install-recommends \
@@ -44,7 +50,7 @@ RUN dpkg --purge --force-depends ca-certificates-java \
     libkrb5-dev \
     sudo \
     locales \
-    gcc \
+    build-essential \
     fonts-liberation \
     unzip \
     libsm6 \
@@ -61,6 +67,8 @@ RUN dpkg --purge --force-depends ca-certificates-java \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+#RUN ln -s /usr/bin/gcc-12 /usr/bin/gcc
+#RUN ln -s /usr/bin/g++-12 /usr/bin/g++
 RUN ln -s $(readlink -f /usr/bin/javac | sed "s:/bin/javac::") ${JAVA_HOME}
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
