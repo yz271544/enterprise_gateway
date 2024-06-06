@@ -151,9 +151,12 @@ RUN cd /tmp && \
     fix-permissions $ANACONDA_HOME && \
     fix-permissions /home/$NB_USER
 
+USER $NB_USER
 # SETUP PASSWORDLESS SSH FOR $NB_USER
 RUN ssh-keygen -q -N "" -t rsa -f /home/$NB_USER/.ssh/id_rsa
 RUN cp /home/$NB_USER/.ssh/id_rsa.pub /home/$NB_USER/.ssh/authorized_keys
+
+USER root
 RUN chmod 0700 /home/$NB_USER
 # SETUP PASSWORDLESS SSH
 RUN yes y | ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key && \
