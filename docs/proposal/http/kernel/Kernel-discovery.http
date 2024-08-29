@@ -1,0 +1,368 @@
+### GET request to example server
+GET http://{{host}}:{{port}}/api/kernelspecs
+### Response
+HTTP/1.1 200 OK
+Server: TornadoServer/6.2
+Content-Type: application/json
+Date: Mon, 24 Jun 2024 09:09:39 GMT
+X-Content-Type-Options: nosniff
+Etag: "0759565f4ba0921c547c0294fdfb0417b51ece80"
+Content-Length: 11251
+
+{
+  "default": "python_kubernetes",
+  "kernelspecs": {
+    "spark_r_kubernetes": {
+      "name": "spark_r_kubernetes",
+      "spec": {
+        "argv": [
+          "/usr/local/share/jupyter/kernels/spark_R_kubernetes/bin/run.sh",
+          "--RemoteProcessProxy.kernel-id",
+          "{kernel_id}",
+          "--RemoteProcessProxy.port-range",
+          "{port_range}",
+          "--RemoteProcessProxy.response-address",
+          "{response_address}",
+          "--RemoteProcessProxy.public-key",
+          "{public_key}",
+          "--RemoteProcessProxy.spark-context-initialization-mode",
+          "lazy"
+        ],
+        "env": {
+          "SPARK_HOME": "/opt/spark",
+          "SPARK_OPTS": "--master k8s://https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT} --deploy-mode cluster --name ${KERNEL_USERNAME}-${KERNEL_ID} --conf spark.kubernetes.namespace=${KERNEL_NAMESPACE} --conf spark.kubernetes.driver.label.app=enterprise-gateway --conf spark.kubernetes.driver.label.kernel_id=${KERNEL_ID} --conf spark.kubernetes.driver.label.component=kernel --conf spark.kubernetes.executor.label.app=enterprise-gateway --conf spark.kubernetes.executor.label.kernel_id=${KERNEL_ID} --conf spark.kubernetes.executor.label.component=worker --conf spark.kubernetes.driver.container.image=${KERNEL_IMAGE} --conf spark.kubernetes.executor.container.image=${KERNEL_EXECUTOR_IMAGE} --conf spark.kubernetes.authenticate.driver.serviceAccountName=${KERNEL_SERVICE_ACCOUNT_NAME} --conf spark.kubernetes.submission.waitAppCompletion=false --conf spark.kubernetes.driverEnv.HTTP2_DISABLE=true ${KERNEL_EXTRA_SPARK_OPTS}",
+          "HTTP2_DISABLE": "true",
+          "LAUNCH_OPTS": ""
+        },
+        "display_name": "Spark - R (Kubernetes Mode)",
+        "language": "R",
+        "interrupt_mode": "signal",
+        "metadata": {
+          "process_proxy": {
+            "class_name": "enterprise_gateway.services.processproxies.k8s.KubernetesProcessProxy",
+            "config": {
+              "image_name": "elyra/kernel-spark-r:3.2.3",
+              "executor_image_name": "elyra/kernel-spark-r:3.2.3"
+            }
+          }
+        }
+      },
+      "resources": {
+        "kernel.js": "/kernelspecs/spark_r_kubernetes/kernel.js",
+        "logo-64x64": "/kernelspecs/spark_r_kubernetes/logo-64x64.png"
+      }
+    },
+    "r_kubernetes": {
+      "name": "r_kubernetes",
+      "spec": {
+        "argv": [
+          "python",
+          "/usr/local/share/jupyter/kernels/R_kubernetes/scripts/launch_kubernetes.py",
+          "--RemoteProcessProxy.kernel-id",
+          "{kernel_id}",
+          "--RemoteProcessProxy.port-range",
+          "{port_range}",
+          "--RemoteProcessProxy.response-address",
+          "{response_address}",
+          "--RemoteProcessProxy.public-key",
+          "{public_key}"
+        ],
+        "env": {},
+        "display_name": "R on Kubernetes",
+        "language": "R",
+        "interrupt_mode": "signal",
+        "metadata": {
+          "process_proxy": {
+            "class_name": "enterprise_gateway.services.processproxies.k8s.KubernetesProcessProxy",
+            "config": {
+              "image_name": "elyra/kernel-r:3.2.3"
+            }
+          }
+        }
+      },
+      "resources": {
+        "kernel.js": "/kernelspecs/r_kubernetes/kernel.js",
+        "logo-64x64": "/kernelspecs/r_kubernetes/logo-64x64.png"
+      }
+    },
+    "python_tf_gpu_kubernetes": {
+      "name": "python_tf_gpu_kubernetes",
+      "spec": {
+        "argv": [
+          "python",
+          "/usr/local/share/jupyter/kernels/python_tf_gpu_kubernetes/scripts/launch_kubernetes.py",
+          "--RemoteProcessProxy.kernel-id",
+          "{kernel_id}",
+          "--RemoteProcessProxy.port-range",
+          "{port_range}",
+          "--RemoteProcessProxy.response-address",
+          "{response_address}",
+          "--RemoteProcessProxy.public-key",
+          "{public_key}"
+        ],
+        "env": {},
+        "display_name": "Python on Kubernetes with Tensorflow with GPUs",
+        "language": "python",
+        "interrupt_mode": "signal",
+        "metadata": {
+          "process_proxy": {
+            "class_name": "enterprise_gateway.services.processproxies.k8s.KubernetesProcessProxy",
+            "config": {
+              "image_name": "elyra/kernel-tf-gpu-py:3.2.3"
+            }
+          },
+          "debugger": true
+        }
+      },
+      "resources": {
+        "logo-64x64": "/kernelspecs/python_tf_gpu_kubernetes/logo-64x64.png"
+      }
+    },
+    "python_tf_kubernetes": {
+      "name": "python_tf_kubernetes",
+      "spec": {
+        "argv": [
+          "python",
+          "/usr/local/share/jupyter/kernels/python_tf_kubernetes/scripts/launch_kubernetes.py",
+          "--RemoteProcessProxy.kernel-id",
+          "{kernel_id}",
+          "--RemoteProcessProxy.port-range",
+          "{port_range}",
+          "--RemoteProcessProxy.response-address",
+          "{response_address}",
+          "--RemoteProcessProxy.public-key",
+          "{public_key}"
+        ],
+        "env": {},
+        "display_name": "Python on Kubernetes with Tensorflow",
+        "language": "python",
+        "interrupt_mode": "signal",
+        "metadata": {
+          "process_proxy": {
+            "class_name": "enterprise_gateway.services.processproxies.k8s.KubernetesProcessProxy",
+            "config": {
+              "image_name": "elyra/kernel-tf-py:3.2.3"
+            }
+          },
+          "debugger": true
+        }
+      },
+      "resources": {
+        "logo-64x64": "/kernelspecs/python_tf_kubernetes/logo-64x64.png"
+      }
+    },
+    "python_kubernetes": {
+      "name": "python_kubernetes",
+      "spec": {
+        "argv": [
+          "python",
+          "/usr/local/share/jupyter/kernels/python_kubernetes/scripts/launch_kubernetes.py",
+          "--RemoteProcessProxy.kernel-id",
+          "{kernel_id}",
+          "--RemoteProcessProxy.port-range",
+          "{port_range}",
+          "--RemoteProcessProxy.response-address",
+          "{response_address}",
+          "--RemoteProcessProxy.public-key",
+          "{public_key}"
+        ],
+        "env": {},
+        "display_name": "Python on Kubernetes",
+        "language": "python",
+        "interrupt_mode": "signal",
+        "metadata": {
+          "process_proxy": {
+            "class_name": "enterprise_gateway.services.processproxies.k8s.KubernetesProcessProxy",
+            "config": {
+              "image_name": "elyra/kernel-py:3.2.3"
+            }
+          },
+          "debugger": true
+        }
+      },
+      "resources": {
+        "logo-64x64": "/kernelspecs/python_kubernetes/logo-64x64.png"
+      }
+    },
+    "spark_python_kubernetes": {
+      "name": "spark_python_kubernetes",
+      "spec": {
+        "argv": [
+          "/usr/local/share/jupyter/kernels/spark_python_kubernetes/bin/run.sh",
+          "--RemoteProcessProxy.kernel-id",
+          "{kernel_id}",
+          "--RemoteProcessProxy.port-range",
+          "{port_range}",
+          "--RemoteProcessProxy.response-address",
+          "{response_address}",
+          "--RemoteProcessProxy.public-key",
+          "{public_key}",
+          "--RemoteProcessProxy.spark-context-initialization-mode",
+          "lazy"
+        ],
+        "env": {
+          "SPARK_HOME": "/opt/spark",
+          "SPARK_OPTS": "--master k8s://https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT} --deploy-mode cluster --name ${KERNEL_USERNAME}-${KERNEL_ID} --conf spark.kubernetes.namespace=${KERNEL_NAMESPACE} --conf spark.kubernetes.driver.label.app=enterprise-gateway --conf spark.kubernetes.driver.label.kernel_id=${KERNEL_ID} --conf spark.kubernetes.driver.label.component=kernel --conf spark.kubernetes.executor.label.app=enterprise-gateway --conf spark.kubernetes.executor.label.kernel_id=${KERNEL_ID} --conf spark.kubernetes.executor.label.component=worker --conf spark.kubernetes.driver.container.image=${KERNEL_IMAGE} --conf spark.kubernetes.executor.container.image=${KERNEL_EXECUTOR_IMAGE} --conf spark.kubernetes.authenticate.driver.serviceAccountName=${KERNEL_SERVICE_ACCOUNT_NAME} --conf spark.kubernetes.submission.waitAppCompletion=false --conf spark.kubernetes.driverEnv.HTTP2_DISABLE=true ${KERNEL_EXTRA_SPARK_OPTS}",
+          "HTTP2_DISABLE": "true",
+          "LAUNCH_OPTS": ""
+        },
+        "display_name": "Spark - Python (Kubernetes Mode)",
+        "language": "python",
+        "interrupt_mode": "signal",
+        "metadata": {
+          "process_proxy": {
+            "class_name": "enterprise_gateway.services.processproxies.k8s.KubernetesProcessProxy",
+            "config": {
+              "image_name": "elyra/kernel-spark-py:3.2.3",
+              "executor_image_name": "elyra/kernel-spark-py:3.2.3"
+            }
+          },
+          "debugger": true
+        }
+      },
+      "resources": {
+        "logo-64x64": "/kernelspecs/spark_python_kubernetes/logo-64x64.png"
+      }
+    },
+    "scala_kubernetes": {
+      "name": "scala_kubernetes",
+      "spec": {
+        "argv": [
+          "python",
+          "/usr/local/share/jupyter/kernels/scala_kubernetes/scripts/launch_kubernetes.py",
+          "--RemoteProcessProxy.kernel-id",
+          "{kernel_id}",
+          "--RemoteProcessProxy.port-range",
+          "{port_range}",
+          "--RemoteProcessProxy.response-address",
+          "{response_address}",
+          "--RemoteProcessProxy.public-key",
+          "{public_key}"
+        ],
+        "env": {},
+        "display_name": "Scala on Kubernetes",
+        "language": "scala",
+        "interrupt_mode": "signal",
+        "metadata": {
+          "process_proxy": {
+            "class_name": "enterprise_gateway.services.processproxies.k8s.KubernetesProcessProxy",
+            "config": {
+              "image_name": "elyra/kernel-scala:3.2.3"
+            }
+          }
+        }
+      },
+      "resources": {
+        "logo-64x64": "/kernelspecs/scala_kubernetes/logo-64x64.png"
+      }
+    },
+    "spark_scala_kubernetes": {
+      "name": "spark_scala_kubernetes",
+      "spec": {
+        "argv": [
+          "/usr/local/share/jupyter/kernels/spark_scala_kubernetes/bin/run.sh",
+          "--RemoteProcessProxy.kernel-id",
+          "{kernel_id}",
+          "--RemoteProcessProxy.port-range",
+          "{port_range}",
+          "--RemoteProcessProxy.response-address",
+          "{response_address}",
+          "--RemoteProcessProxy.public-key",
+          "{public_key}",
+          "--RemoteProcessProxy.spark-context-initialization-mode",
+          "eager"
+        ],
+        "env": {
+          "SPARK_HOME": "/opt/spark",
+          "__TOREE_SPARK_OPTS__": "--master k8s://https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT} --deploy-mode cluster --name ${KERNEL_USERNAME}-${KERNEL_ID} --conf spark.kubernetes.namespace=${KERNEL_NAMESPACE} --driver-memory 2G --conf spark.kubernetes.driver.label.app=enterprise-gateway --conf spark.kubernetes.driver.label.kernel_id=${KERNEL_ID} --conf spark.kubernetes.driver.label.component=kernel --conf spark.kubernetes.executor.label.app=enterprise-gateway --conf spark.kubernetes.executor.label.kernel_id=${KERNEL_ID} --conf spark.kubernetes.executor.label.component=worker --conf spark.kubernetes.driver.container.image=${KERNEL_IMAGE} --conf spark.kubernetes.executor.container.image=${KERNEL_EXECUTOR_IMAGE} --conf spark.kubernetes.authenticate.driver.serviceAccountName=${KERNEL_SERVICE_ACCOUNT_NAME} --conf spark.kubernetes.submission.waitAppCompletion=false --conf spark.kubernetes.driverEnv.HTTP2_DISABLE=true ${KERNEL_EXTRA_SPARK_OPTS}",
+          "__TOREE_OPTS__": "--alternate-sigint USR2",
+          "HTTP2_DISABLE": "true",
+          "LAUNCH_OPTS": "",
+          "DEFAULT_INTERPRETER": "Scala"
+        },
+        "display_name": "Spark - Scala (Kubernetes Mode)",
+        "language": "scala",
+        "interrupt_mode": "signal",
+        "metadata": {
+          "process_proxy": {
+            "class_name": "enterprise_gateway.services.processproxies.k8s.KubernetesProcessProxy",
+            "config": {
+              "image_name": "elyra/kernel-scala:3.2.3",
+              "executor_image_name": "elyra/kernel-scala:3.2.3"
+            }
+          }
+        }
+      },
+      "resources": {
+        "logo-64x64": "/kernelspecs/spark_scala_kubernetes/logo-64x64.png"
+      }
+    },
+    "spark_python_operator": {
+      "name": "spark_python_operator",
+      "spec": {
+        "argv": [
+          "python",
+          "/usr/local/share/jupyter/kernels/spark_python_operator/scripts/launch_custom_resource.py",
+          "--RemoteProcessProxy.kernel-id",
+          "{kernel_id}",
+          "--RemoteProcessProxy.port-range",
+          "{port_range}",
+          "--RemoteProcessProxy.response-address",
+          "{response_address}",
+          "--RemoteProcessProxy.public-key",
+          "{public_key}"
+        ],
+        "env": {},
+        "display_name": "Spark Operator (Python)",
+        "language": "python",
+        "interrupt_mode": "signal",
+        "metadata": {
+          "process_proxy": {
+            "class_name": "enterprise_gateway.services.processproxies.spark_operator.SparkOperatorProcessProxy",
+            "config": {
+              "image_name": "elyra/kernel-spark-py:3.2.3",
+              "executor_image_name": "elyra/kernel-spark-py:3.2.3"
+            }
+          }
+        }
+      },
+      "resources": {
+        "logo-64x64": "/kernelspecs/spark_python_operator/logo-64x64.png"
+      }
+    },
+    "python_math_kubernetes": {
+      "name": "python_math_kubernetes",
+      "spec": {
+        "argv": [
+          "python",
+          "/usr/local/share/jupyter/kernels/python_math_kubernetes/scripts/launch_kubernetes.py",
+          "--RemoteProcessProxy.kernel-id",
+          "{kernel_id}",
+          "--RemoteProcessProxy.port-range",
+          "{port_range}",
+          "--RemoteProcessProxy.response-address",
+          "{response_address}",
+          "--RemoteProcessProxy.public-key",
+          "{public_key}"
+        ],
+        "env": {},
+        "display_name": "Python for math on Kubernetes",
+        "language": "python",
+        "interrupt_mode": "signal",
+        "metadata": {
+          "process_proxy": {
+            "class_name": "enterprise_gateway.services.processproxies.k8s.KubernetesProcessProxy",
+            "config": {
+              "image_name": "registry.cn-sh-01.sensecore.cn/tsm_2024052501/kernel-math-py:3.2.3-180fec2"
+            }
+          },
+          "debugger": true
+        }
+      },
+      "resources": {
+        "logo-64x64": "/kernelspecs/python_math_kubernetes/logo-64x64.png"
+      }
+    }
+  }
+}
+###

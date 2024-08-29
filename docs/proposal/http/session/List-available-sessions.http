@@ -1,0 +1,3 @@
+### GET request to example server
+GET http://{{host}}:{{port}}/api/sessions
+###

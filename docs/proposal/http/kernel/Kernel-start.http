@@ -1,0 +1,25 @@
+### GET request to example server
+# curl -X POST -i 'http://my-gateway-server.com:8888/api/kernels' --data '{ "name": "spark_python_yarn_cluster", "env": { "KERNEL_USERNAME": "jovyan" }}'
+POST http://{{host}}:{{port}}/api/kernels
+Content-Type: application/json
+
+{ "name": "python_math_kubernetes", "env": { "KERNEL_USERNAME": "jovyan" }}
+
+### Response
+HTTP/1.1 201 Created
+Server: TornadoServer/6.2
+Content-Type: application/json
+Date: Mon, 24 Jun 2024 09:42:26 GMT
+X-Content-Type-Options: nosniff
+Location: /api/kernels/f0f65171-ed2c-466f-b697-627ed74a73a8
+Content-Length: 177
+
+{
+  "id": "f0f65171-ed2c-466f-b697-627ed74a73a8",
+  "name": "python_math_kubernetes",
+  "last_activity": "2024-06-24T09:43:03.810114Z",
+  "execution_state": "starting",
+  "connections": 0
+}
+
+###

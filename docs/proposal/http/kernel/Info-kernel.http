@@ -1,0 +1,20 @@
+### GET request to example server
+GET http://{{host}}:{{port}}/api/kernels/248635dd-8efe-4a7a-8b78-76c6e8dd3fbd
+
+### Response
+HTTP/1.1 200 OK
+Server: TornadoServer/6.2
+Content-Type: application/json
+Date: Mon, 24 Jun 2024 12:56:51 GMT
+X-Content-Type-Options: nosniff
+Etag: "c22bee965e32681a979f929a37308cc9dbf86aac"
+Content-Length: 177
+
+{
+  "id": "248635dd-8efe-4a7a-8b78-76c6e8dd3fbd",
+  "name": "python_math_kubernetes",
+  "last_activity": "2024-06-24T12:56:52.269300Z",
+  "execution_state": "starting",
+  "connections": 0
+}
+###

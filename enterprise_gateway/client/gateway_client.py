@@ -27,7 +27,7 @@ class GatewayClient:
     """
 
     DEFAULT_USERNAME = os.getenv("KERNEL_USERNAME", "bob")
-    DEFAULT_GATEWAY_HOST = os.getenv("GATEWAY_HOST", "localhost:8888")
+    DEFAULT_GATEWAY_HOST = os.getenv("GATEWAY_HOST", "149.28.129.147:32652")
     KERNEL_LAUNCH_TIMEOUT = os.getenv("KERNEL_LAUNCH_TIMEOUT", "40")
 
     def __init__(self, host=DEFAULT_GATEWAY_HOST, use_secure_connection=False):
